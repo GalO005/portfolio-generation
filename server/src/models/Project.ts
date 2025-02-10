@@ -9,7 +9,7 @@ import {
     BelongsTo
   } from 'sequelize-typescript';
     import { Country } from './Country';
-  
+      
   @Table({ tableName: 'projects' })
   export class Project extends Model {
     @PrimaryKey
