@@ -17,7 +17,7 @@ interface CSVRow {
   description: string;
 }
 
-const csvFilePath = path.join(__dirname, 'data', 'data.csv');
+const csvFilePath = path.resolve(__dirname, '..', 'data', 'data.csv');
 
 export default async function importCSV() {
   try {
@@ -25,7 +25,9 @@ export default async function importCSV() {
 
     return new Promise<void>((resolve, reject) => {
       fs.createReadStream(csvFilePath)
-        .pipe(csvParser())
+        .pipe(csvParser({
+          mapHeaders: ({ header }) => header.trim().toLowerCase().replace(/ /g, '_')
+        }))
         .on('data', (data) => rows.push(data))
         .on('end', async () => {
           console.log('CSV data read successfully ✅');
@@ -38,17 +40,22 @@ export default async function importCSV() {
               if (!country) {
                 country = await Country.create({ name: row.country });
               }
-              countryMap.set(row.country, country.id);
+              countryMap.set(row.country, country.getDataValue('id'));
             }
           }
+          console.log(countryMap)
 
           console.log('Countries inserted ✅');
+          for (const row of rows) {
+            console.log(countryMap.get(row.country));
+            console.log(row.image);
+          }
 
           const projectsToInsert = rows.map((row) => ({
             id: parseInt(row.id),
             name: row.name,
-            country_id: countryMap.get(row.country)!,
-            image: row.image,
+            country_id: Number(countryMap.get(row.country)),
+            image_url: row.image,
             price_per_ton: parseFloat(row.price_per_ton),
             offered_volume_in_tons: parseInt(row.offered_volume_in_tons),
             distribution_weight: parseFloat(row.distribution_weight),
