@@ -1,6 +1,9 @@
+import Portfolio from "./components/portfolio"
+
+
 function App() {
 
-  return <div>App!</div>
+  return <Portfolio />
 }
 
 export default App
