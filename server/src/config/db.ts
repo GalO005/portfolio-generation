@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
     process.env.DB_PASSWORD as string,
     {
         host: process.env.DB_HOST as string,
-        port: parseInt(process.env.DB_PORT as string),
+        port: Number(process.env.DB_PORT as string),
         dialect: "postgres",
         models: [__dirname + '/models'],
         logging: false,
