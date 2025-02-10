@@ -8,6 +8,7 @@ import {
     Unique,
     HasMany
   } from 'sequelize-typescript';
+  import { Project } from './Project';
   
   @Table({ tableName: 'countries' })
   export class Country extends Model {
@@ -19,6 +20,9 @@ import {
     @Unique
     @Column({ type: DataType.STRING(100), allowNull: false })
     name!: string;
+
+    @HasMany(() => Project)
+    projects!: Project[];
   
   }
   
