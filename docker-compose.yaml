@@ -16,7 +16,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: portfolio
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
     networks:
@@ -45,7 +45,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: portfolio
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
