@@ -1,7 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
 import dotenv from "dotenv";
-import { Country } from "../models/Country";
-import { Project } from "../models/Project";
 
 dotenv.config();
 
