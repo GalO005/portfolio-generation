@@ -43,13 +43,9 @@ export default async function importCSV() {
               countryMap.set(row.country, country.getDataValue('id'));
             }
           }
-          console.log(countryMap)
 
           console.log('Countries inserted ✅');
-          for (const row of rows) {
-            console.log(countryMap.get(row.country));
-            console.log(row.image);
-          }
+          
 
           const projectsToInsert = rows.map((row) => ({
             id: parseInt(row.id),
