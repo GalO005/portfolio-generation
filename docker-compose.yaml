@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  node-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.node
+    ports:
+      - "3000:3000"
+    hostname: node-server
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    networks:
+      - app-network
+  
+  react-app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.react
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - node-server
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
