@@ -50,6 +50,19 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
+  
+  test-node-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.node
+    command: npm run test
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    depends_on:
+      - node-server
+    networks:
+      - app-network
 
 volumes:
   postgres_data:
