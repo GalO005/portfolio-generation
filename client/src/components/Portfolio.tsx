@@ -6,15 +6,14 @@ import axiosInstance from "@/api/axiosInstance";
 
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 
-// interface Project {
-//     id: number;
-//     name: string;
-//     country: string;
-//     image_url: string;
-//     price_per_ton: number;
-//     available: number;
-//     distribution_weight: number;
-//   }
+interface Project {
+    id: number;
+    name: string;
+    country: string;
+    image: string;
+    description: string;
+    allocated: number
+  }
 
 export default function Portfolio() {
   const [requestedTons, setRequestedTons] = useState("");
@@ -61,13 +60,14 @@ export default function Portfolio() {
               <TableHead>Project</TableHead>
               <TableHead>Country</TableHead>
               <TableHead>Allocated Tons</TableHead>
+              <TableHead>Description</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {portfolio.map((p:any) => (
+            {portfolio.map((p:Project) => (
               <TableRow key={p.id}>
                 <TableCell> <img
-                      src={p['image_url']}
+                      src={p.image}
                       alt={p.name}
                       width={80}
                       height={50}
@@ -75,8 +75,9 @@ export default function Portfolio() {
                     />
                   </TableCell>
                 <TableCell>{p.name}</TableCell>
-                <TableCell>{p.country.name}</TableCell>
+                <TableCell>{p.country}</TableCell>
                 <TableCell>{p.allocated}</TableCell>
+                <TableCell>{p.description}</TableCell>
               </TableRow>
             ))}
           </TableBody>

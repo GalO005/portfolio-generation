@@ -68,10 +68,10 @@ export default async function portfolioHandling(req: Request, res: Response) {
         if (totalAllocated > requestedTons) {
             throw new Error("Total allocated tons exceeded the requested amount.");
         }
-        console.log(allocation);
+        const results = allocation.map((p) => ({id: p.id, description: p.description, image: p.image_url, country: p.country.name, allocated: p.allocated}));
 
         // Send the allocation response
-        res.json(allocation);
+        res.json(results);
     } catch (error) {
         console.error("Error during allocation:", error);
         res.status(500).json({ error: "Allocation failed" });
