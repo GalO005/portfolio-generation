@@ -38,7 +38,6 @@ export default function Portfolio() {
         const response = await axiosInstance.post("/portfolio/generate", {
           requestedTons: requestedTons,
         });
-        console.log(response.data);
         setPortfolio(response.data);
       } catch (err: unknown) {
         if (err instanceof Error) {
