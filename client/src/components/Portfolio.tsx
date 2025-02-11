@@ -6,15 +6,15 @@ import axiosInstance from "@/api/axiosInstance";
 
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 
-interface Project {
-    id: number;
-    name: string;
-    country: string;
-    image: string;
-    price_per_ton: number;
-    available: number;
-    distribution_weight: number;
-  }
+// interface Project {
+//     id: number;
+//     name: string;
+//     country: string;
+//     image_url: string;
+//     price_per_ton: number;
+//     available: number;
+//     distribution_weight: number;
+//   }
 
 export default function Portfolio() {
   const [requestedTons, setRequestedTons] = useState("");
@@ -30,8 +30,7 @@ export default function Portfolio() {
         requestedTons: requestedTons,
       });
       console.log(response.data);
-      
-      //setPortfolio(response.data);
+      setPortfolio(response.data);
     } catch (err) {
       setError("Failed to fetch portfolio");
     } finally {
@@ -58,16 +57,26 @@ export default function Portfolio() {
         <Table className="mt-4">
           <TableHeader>
             <TableRow>
+              <TableHead>Image</TableHead>
               <TableHead>Project</TableHead>
               <TableHead>Country</TableHead>
               <TableHead>Allocated Tons</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {portfolio.map((p:Project) => (
+            {portfolio.map((p:any) => (
               <TableRow key={p.id}>
+                <TableCell> <img
+                      src={p['image_url']}
+                      alt={p.name}
+                      width={80}
+                      height={50}
+                      className="rounded-lg object-cover"
+                    />
+                  </TableCell>
                 <TableCell>{p.name}</TableCell>
-                <TableCell>{p.country}</TableCell>
+                <TableCell>{p.country.name}</TableCell>
+                <TableCell>{p.allocated}</TableCell>
               </TableRow>
             ))}
           </TableBody>
