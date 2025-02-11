@@ -30,13 +30,20 @@ import {
     @Column({ type: DataType.TEXT, allowNull: true })
     image_url?: string;
   
-    @Column({ type: DataType.DECIMAL(10, 2), allowNull: false })
+    @Column({ type: DataType.DECIMAL(10, 2), allowNull: false,
+    get() {
+        return parseFloat(this.getDataValue('price_per_ton'));
+      }
+     })
     price_per_ton!: number;
 
     @Column({ type: DataType.INTEGER, allowNull: false })
     offered_volume_in_tons!: number;
   
-    @Column({ type: DataType.DECIMAL(4, 2), allowNull: false, validate: { min: 0.01, max: 1 } })
+    @Column({ type: DataType.DECIMAL(4, 2), allowNull: false, validate: { min: 0.01, max: 1 },
+    get() {
+        return parseFloat(this.getDataValue('distribution_weight'));
+      }})
     distribution_weight!: number;
 
     @Column({ type: DataType.TEXT, allowNull: false })
