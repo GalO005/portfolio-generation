@@ -29,7 +29,6 @@ export default async function portfolioHandling(req: Request, res: Response) {
             ...p.toJSON(),
             allocated: 0
         }) as ProjectWithAllocated);
-        console.log(projectsWithAllocated);
         for (const project of projectsWithAllocated) {
             const proportionalShare = (project['distribution_weight'] / totalWeight) * requestedTons;
             const allocateAmount = Math.min(proportionalShare, project['offered_volume_in_tons']);
