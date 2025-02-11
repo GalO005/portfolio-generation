@@ -31,7 +31,7 @@ export default function Portfolio() {
   const fetchPortfolio = async () => {
     setLoading(true);
     setError("");
-  
+
     // Simulate a delay before making the request
     setTimeout(async () => {
       try {
@@ -45,12 +45,11 @@ export default function Portfolio() {
         } else {
           setError("Failed to fetch portfolio");
         }
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     }, 2000);
   };
-  
+
   return (
     <div className="p-4 max-w-xl mx-auto">
       <Card>
@@ -69,6 +68,7 @@ export default function Portfolio() {
           </Button>
         </CardContent>
       </Card>
+      {error && <p className="text-red-500 mt-2">{error}</p>}
       {portfolio.length > 0 && (
         <Table className="mt-4">
           <TableHeader>
