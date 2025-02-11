@@ -9,9 +9,9 @@ interface CSVRow {
   name: string;
   country: string;
   image: string;
-  price_per_ton: string;
-  offered_volume_in_tons: string;
-  distribution_weight: string;
+  price_per_ton: number;
+  offered_volume_in_tons: number;
+  distribution_weight: number;
   supplier_name: string;
   earliest_delivery: string;
   description: string;
@@ -52,9 +52,9 @@ export default async function importCSV() {
             name: row.name,
             country_id: Number(countryMap.get(row.country)),
             image_url: row.image,
-            price_per_ton: parseFloat(row.price_per_ton),
-            offered_volume_in_tons: parseInt(row.offered_volume_in_tons),
-            distribution_weight: parseFloat(row.distribution_weight),
+            price_per_ton: row.price_per_ton,
+            offered_volume_in_tons: row.offered_volume_in_tons,
+            distribution_weight: row.distribution_weight,
             supplier_name: row.supplier_name,
             earliest_delivery: row.earliest_delivery,
             description: row.description
