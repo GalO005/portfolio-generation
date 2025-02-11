@@ -20,7 +20,6 @@ export default async function portfolioHandling(req: Request, res: Response) {
         const totalWeight = projects.reduce((sum, project) => sum + project.get('distribution_weight'), 0);
 
         // Initialize variables
-        // let remainingTons = +requestedTons;
         let remainingTons = Math.min(+requestedTons, projects.reduce((sum, p) => sum + p.getDataValue('offered_volume_in_tons'), 0));
         const allocation: ProjectWithAllocated[] = [];
 
